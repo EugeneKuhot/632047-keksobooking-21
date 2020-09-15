@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Петр Петров](https://up.htmlacademy.ru/javascript/21/user/632047).
-* Наставник: `Неизвестно`.
+* Наставник: `ForeverAlone`.
 
 ---
 
