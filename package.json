@@ -1,0 +1,25 @@
+{
+  "name": "keksobooking",
+  "version": "19.0.0",
+  "private": true,
+  "description": "Личный проект «Кексобукинг» от HTML Academy",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:htmlacademy-javascript/632047-keksobooking-21.git"
+  },
+  "bugs": {
+    "url": "https://github.com/htmlacademy-javascript/632047-keksobooking-21/issues"
+  },
+  "devDependencies": {
+    "eslint": "7.1.0",
+    "eslint-config-htmlacademy": "0.6.0"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "test": "eslint js/"
+  },
+  "engines": {
+    "node": "8.11"
+  }
+}
