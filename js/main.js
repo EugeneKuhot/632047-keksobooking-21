@@ -39,7 +39,6 @@ function getTypeForMock() {
   return typeForAd;
 }
 function getSimilarAd() {
-
   const similarAdsArray = [];
 
   for (let i = 1; i <= 8; i++) {
@@ -94,7 +93,6 @@ showMap();
 //  Pins
 
 const mapPinsBlock = document.querySelector(`.map__pins`);
-
 function createPins(adData) {
   const pinsFragment = document.createDocumentFragment();
   const pinTemplate = document.querySelector(`#pin`).content.querySelector(`button`);
@@ -109,11 +107,11 @@ function createPins(adData) {
 
   mapPinsBlock.appendChild(pinsFragment);
 }
-
 createPins(adDataMock);
 
 
 // AdCardPopup
+
 const adCardPopupTemplate = document.querySelector(`#card`).content.querySelector(`.map__card`);
 const popupPhoto = adCardPopupTemplate.querySelector(`.popup__photo`);
 
@@ -142,7 +140,6 @@ function getFeaturesBlock(adData) {
 
   return featureFragment;
 }
-
 function createPhotosFragment(adData) {
   const photosFragment = document.createDocumentFragment();
   for (let t = 0; t < adData.offer.photos.length; t++) {
@@ -152,7 +149,6 @@ function createPhotosFragment(adData) {
   }
   return photosFragment;
 }
-
 function adCard(adData) {
   const mapFiltersContainer = document.querySelector(`.map__filters-container`);
   const ad = adCardPopupTemplate.cloneNode(true);
