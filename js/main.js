@@ -86,6 +86,11 @@ const adDataMock = getSimilarAd(); // Mock array with property ads
 //  Show map with pins
 
 const map = document.querySelector(`.map`);
+function removeCardPopups() {
+  const allCardPopups = map.querySelectorAll(`.map__card.popup`);
+
+  allCardPopups.forEach((el) => el.remove());
+}
 function showMap() {
   map.classList.remove(`map--faded`);
 }
@@ -102,12 +107,29 @@ function createPins(adData) {
     pin.style = `left:` + adData[i].location.x + `px; top:` + adData[i].location.y + `px;`;
     pin.querySelector(`img`).src = adData[i].author.avatar;
     pin.querySelector(`img`).alt = adData[i].offer.description;
+
+    const onPinItemClick = function () {
+      adCard(adData[i]);
+    };
+
+    pin.addEventListener(`click`, function () {
+      removeCardPopups();
+      onPinItemClick();
+    });
+    pin.addEventListener(`keydown`, function (e) {
+      if (e.keyCode === 13) {
+        removeCardPopups();
+        onPinItemClick();
+      }
+
+    });
+
+
     pinsFragment.appendChild(pin);
   }
 
   mapPinsBlock.appendChild(pinsFragment);
 }
-createPins(adDataMock);
 
 
 // AdCardPopup
@@ -153,23 +175,33 @@ function adCard(adData) {
   const mapFiltersContainer = document.querySelector(`.map__filters-container`);
   const ad = adCardPopupTemplate.cloneNode(true);
 
-  ad.querySelector(`.popup__title`).textContent = adData[0].offer.title;
-  ad.querySelector(`.popup__text--address`).textContent = adData[0].offer.address;
-  ad.querySelector(`.popup__text--price`).textContent = adData[0].offer.price + `₽/ночь`;
-  ad.querySelector(`.popup__type`).textContent = getPropertyTypeForAd(adData[0].offer.type);
-  ad.querySelector(`.popup__text--capacity`).textContent = adData[0].offer.rooms + ` комнаты для ` + adData[0].offer.guests + ` гостей`;
-  ad.querySelector(`.popup__text--time`).textContent = `Заезд после ` + adData[0].offer.checkin + `, выезд до ` + adData[0].offer.checkout;
+  ad.querySelector(`.popup__title`).textContent = adData.offer.title;
+  ad.querySelector(`.popup__text--address`).textContent = adData.offer.address;
+  ad.querySelector(`.popup__text--price`).textContent = adData.offer.price + `₽/ночь`;
+  ad.querySelector(`.popup__type`).textContent = getPropertyTypeForAd(adData.offer.type);
+  ad.querySelector(`.popup__text--capacity`).textContent = adData.offer.rooms + ` комнаты для ` + adData.offer.guests + ` гостей`;
+  ad.querySelector(`.popup__text--time`).textContent = `Заезд после ` + adData.offer.checkin + `, выезд до ` + adData.offer.checkout;
   ad.querySelector(`.popup__features`).innerHTML = ``;
-  ad.querySelector(`.popup__features`).appendChild(getFeaturesBlock(adData[0]));
-  ad.querySelector(`.popup__description`).textContent = adData[0].offer.description;
-  ad.querySelector(`.popup__avatar`).src = adData[0].author.avatar;
+  ad.querySelector(`.popup__features`).appendChild(getFeaturesBlock(adData));
+  ad.querySelector(`.popup__description`).textContent = adData.offer.description;
+  ad.querySelector(`.popup__avatar`).src = adData.author.avatar;
   ad.querySelector(`.popup__photos`).removeChild(ad.querySelector(`.popup__photo`));
-  ad.querySelector(`.popup__photos`).appendChild(createPhotosFragment(adData[0]));
+  ad.querySelector(`.popup__photos`).appendChild(createPhotosFragment(adData));
+
+  ad.querySelector(`.popup__close`).addEventListener(`click`, removeCardPopups);
+  ad.querySelector(`.popup__close`).addEventListener(`keydown`, function (e) {
+    if (e.keyCode === 13) {
+      removeCardPopups();
+    }
+  });
+  document.addEventListener(`keydown`, function (e) {
+    if (e.keyCode === 27) {
+      removeCardPopups();
+    }
+  });
 
   mapFiltersContainer.insertAdjacentElement(`beforebegin`, ad);
 }
-
-adCard(adDataMock);
 
 const mainPin = document.querySelector(`.map__pin--main`);
 const adForm = document.querySelector(`.ad-form`);
@@ -207,12 +239,14 @@ mainPin.addEventListener(`mousedown`, function (e) {
   if (e.button === 0) {
     activatePage();
     setAddress(PIN_HEIGHT);
+    createPins(adDataMock);
   }
 });
 mainPin.addEventListener(`keydown`, function (e) {
   if (e.keyCode === 13) {
     activatePage();
     setAddress(PIN_HEIGHT);
+    createPins(adDataMock);
   }
 });
 
@@ -280,3 +314,69 @@ const onRoomNumberSelectChange = function (evt) {
 roomNumberSelect.addEventListener(`change`, onRoomNumberSelectChange);
 
 submitBtn.addEventListener(`click`, onSubmitBtnClick);
+
+
+const timeInInput = document.querySelector(`#timein`);
+const timeOutInput = document.querySelector(`#timeout`);
+
+const onTimeInInputChange = function (evt) {
+  timeOutInput.value = evt.target.value;
+};
+
+const onTimeOutInputChange = function (evt) {
+  timeInInput.value = evt.target.value;
+};
+
+timeInInput.addEventListener(`change`, onTimeInInputChange);
+timeOutInput.addEventListener(`change`, onTimeOutInputChange);
+
+const FILE_TYPES = [`gif`, `jpg`, `jpeg`, `png`];
+
+const avatarPreview = document.querySelector(`.ad-form-header__preview img`);
+const imagesPreview = document.querySelector(`.ad-form__photo`);
+const avatarChooser = document.querySelector(`#avatar`);
+const imagesChooser = document.querySelector(`#images`);
+
+
+avatarChooser.addEventListener(`change`, function () {
+  const file = avatarChooser.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some(function (it) {
+    return fileName.endsWith(it);
+  });
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener(`load`, function () {
+      avatarPreview.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+});
+
+
+imagesChooser.addEventListener(`change`, function () {
+  const file = imagesChooser.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some(function (it) {
+    return fileName.endsWith(it);
+  });
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener(`load`, function () {
+      const photo = document.createElement(`img`);
+      photo.style.height = `60px`;
+      photo.style.margin = `5px`;
+      photo.src = reader.result;
+      imagesPreview.appendChild(photo);
+    });
+
+    reader.readAsDataURL(file);
+  }
+});
