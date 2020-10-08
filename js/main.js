@@ -90,8 +90,6 @@ function showMap() {
   map.classList.remove(`map--faded`);
 }
 
-
-
 //  Pins
 
 const mapPinsBlock = document.querySelector(`.map__pins`);
@@ -109,7 +107,7 @@ function createPins(adData) {
 
   mapPinsBlock.appendChild(pinsFragment);
 }
-/*createPins(adDataMock);*/
+createPins(adDataMock);
 
 
 // AdCardPopup
@@ -171,7 +169,7 @@ function adCard(adData) {
   mapFiltersContainer.insertAdjacentElement(`beforebegin`, ad);
 }
 
-/*adCard(adDataMock);*/
+adCard(adDataMock);
 
 const mainPin = document.querySelector(`.map__pin--main`);
 const adForm = document.querySelector(`.ad-form`);
@@ -183,13 +181,13 @@ const addressField = document.querySelector(`#address`);
 
 
 function activateForm() {
-  adForm.classList.remove('ad-form--disabled');
-  fieldsets.forEach(el => el.removeAttribute('disabled'));
+  adForm.classList.remove(`ad-form--disabled`);
+  fieldsets.forEach((el) => el.removeAttribute(`disabled`, `true`));
 }
 function activateFilters() {
-  mapFilters.classList.remove('ad-form--disabled');
-  mapFiltersSelects.forEach(el => el.removeAttribute('disabled'));
-  mapFiltersFieldset.removeAttribute('disabled');
+  mapFilters.classList.remove(`ad-form--disabled`);
+  mapFiltersSelects.forEach((el) => el.removeAttribute(`disabled`));
+  mapFiltersFieldset.removeAttribute(`disabled`);
 }
 function activatePage() {
   showMap();
@@ -205,13 +203,13 @@ function setAddress(offset) {
 
 setAddress(0);
 
-mainPin.addEventListener('mousedown', function(e){
+mainPin.addEventListener(`mousedown`, function (e) {
   if (e.button === 0) {
     activatePage();
     setAddress(PIN_HEIGHT);
   }
 });
-mainPin.addEventListener('keydown', function(e){
+mainPin.addEventListener(`keydown`, function (e) {
   if (e.keyCode === 13) {
     activatePage();
     setAddress(PIN_HEIGHT);
@@ -220,26 +218,26 @@ mainPin.addEventListener('keydown', function(e){
 
 
 // Validity
-const propertyType = document.querySelector('#type');
-const propertyPrice = document.querySelector('#price');
+const propertyType = document.querySelector(`#type`);
+const propertyPrice = document.querySelector(`#price`);
 function changePrice() {
   if (propertyType.value === `bungalow`) {
     propertyPrice.setAttribute(`min`, `0`);
     propertyPrice.setAttribute(`placeholder`, `0`);
-  }else if (propertyType.value === `flat`) {
+  } else if (propertyType.value === `flat`) {
     propertyPrice.setAttribute(`min`, `1000`);
     propertyPrice.setAttribute(`placeholder`, `1000`);
-  }else if (propertyType.value === `house`) {
-    propertyPrice.setAttribute(`min`, `5000`)
-    propertyPrice.setAttribute(`placeholder`, `5000`)
-  }else if (propertyType.value === `palace`) {
-    propertyPrice.setAttribute(`min`, `10000`)
-    propertyPrice.setAttribute(`placeholder`, `10000`)
+  } else if (propertyType.value === `house`) {
+    propertyPrice.setAttribute(`min`, `5000`);
+    propertyPrice.setAttribute(`placeholder`, `5000`);
+  } else if (propertyType.value === `palace`) {
+    propertyPrice.setAttribute(`min`, `10000`);
+    propertyPrice.setAttribute(`placeholder`, `10000`);
   }
 }
 
 
-propertyType.addEventListener('change', changePrice);
+propertyType.addEventListener(`change`, changePrice);
 
 
 const RoomGuestRation = {
@@ -249,13 +247,13 @@ const RoomGuestRation = {
   100: [0]
 };
 
-const roomNumberSelect = document.querySelector('#room_number');
-const capacitySelect = document.querySelector('#capacity');
-const submitBtn = document.querySelector('.ad-form__submit');
+const roomNumberSelect = document.querySelector(`#room_number`);
+const capacitySelect = document.querySelector(`#capacity`);
+const submitBtn = document.querySelector(`.ad-form__submit`);
 
 const checkPlaceValidity = function () {
   const roomGuests = RoomGuestRation[roomNumberSelect.value];
-  const message = roomGuests.indexOf(+capacitySelect.value) === -1 ? 'Количество гостей не влезут в выбранную комнату' : '';
+  const message = roomGuests.indexOf(+capacitySelect.value) === -1 ? `Количество гостей не влезут в выбранную комнату` : ``;
   capacitySelect.setCustomValidity(message);
 };
 
@@ -264,21 +262,21 @@ const onSubmitBtnClick = function () {
 };
 
 const disableСapacityOptions = function (inputValue) {
-  const capacityOptions = capacitySelect.querySelectorAll('option');
+  const capacityOptions = capacitySelect.querySelectorAll(`option`);
   capacityOptions.forEach(function (it) {
     it.disabled = true;
   });
   RoomGuestRation[inputValue].forEach(function (it) {
-    capacitySelect.querySelector('option' + '[value="' + it + '"]').disabled = false;
+    capacitySelect.querySelector(`option` + '[value="' + it + '"]').disabled = false;
     capacitySelect.value = it;
   });
 };
 
 const onRoomNumberSelectChange = function (evt) {
-  evt.target.setCustomValidity('');
+  evt.target.setCustomValidity(``);
   disableСapacityOptions(roomNumberSelect.value);
 };
 
-roomNumberSelect.addEventListener('change', onRoomNumberSelectChange);
+roomNumberSelect.addEventListener(`change`, onRoomNumberSelectChange);
 
-submitBtn.addEventListener('click', onSubmitBtnClick);
+submitBtn.addEventListener(`click`, onSubmitBtnClick);
