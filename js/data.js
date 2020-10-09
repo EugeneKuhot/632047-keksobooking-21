@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+
+  const MAP_TOP_BORDER = 130;
+  const MAP_BOTTOM_BORDER = 630;
+  const MAP_LEFT_BORDER = 0;
+  const MAP_RIGHT_BORDER = 1150;
+
   function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -45,7 +51,7 @@
       const typeForAd = getTypeForMock();
       const featuresForAd = getFeaturesForMock();
       const locationX = getRandomIntInclusive(0, 1200);
-      const locationY = getRandomIntInclusive(130, 630);
+      const locationY = getRandomIntInclusive(MAP_TOP_BORDER, MAP_BOTTOM_BORDER);
 
       const adTemplate = {
         author: {
@@ -80,6 +86,10 @@
   const adDataMock = getSimilarAd(); // Mock array with property ads
 
   window.data = {
-    adData: adDataMock
+    adData: adDataMock,
+    mapTopBorder: MAP_TOP_BORDER,
+    mapBottomBorder: MAP_BOTTOM_BORDER,
+    mapLeftBorder: MAP_LEFT_BORDER,
+    mapRightBorder: MAP_RIGHT_BORDER,
   };
 })();
