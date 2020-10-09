@@ -16,7 +16,7 @@
       const shift = {
         x: startCoords.x - moveE.clientX,
         y: startCoords.y - moveE.clientY
-      }
+      };
 
       startCoords = {
         x: moveE.clientX,
@@ -31,13 +31,13 @@
 
 
       if (pinOffsetTop > window.data.mapBottomBorder) {
-        window.map.mainPin.style.top = window.data.mapBottomBorder + 'px';
+        window.map.mainPin.style.top = window.data.mapBottomBorder + `px`;
       } else if (pinOffsetTop < window.data.mapTopBorder) {
-        window.map.mainPin.style.top = window.data.mapTopBorder + 'px';
-      }else if (pinOffsetLeft < window.data.mapLeftBorder) {
-        window.map.mainPin.style.left = window.data.mapLeftBorder + 'px';
-      }else if (pinOffsetLeft > window.data.mapRightBorder) {
-        window.map.mainPin.style.left = window.data.mapRightBorder + 'px';
+        window.map.mainPin.style.top = window.data.mapTopBorder + `px`;
+      } else if (pinOffsetLeft < window.data.mapLeftBorder) {
+        window.map.mainPin.style.left = window.data.mapLeftBorder + `px`;
+      } else if (pinOffsetLeft > window.data.mapRightBorder) {
+        window.map.mainPin.style.left = window.data.mapRightBorder + `px`;
       }
 
     }
@@ -58,6 +58,5 @@
 
     document.addEventListener(`mousemove`, mouseMoveShift);
     document.addEventListener(`mouseup`, mouseUpShift);
-
-  })
+  });
 })();
