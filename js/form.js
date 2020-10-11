@@ -11,6 +11,7 @@
 
   const propertyType = document.querySelector(`#type`);
   const propertyPrice = document.querySelector(`#price`);
+
   function changePrice() {
     if (propertyType.value === `bungalow`) {
       propertyPrice.setAttribute(`min`, `0`);
@@ -32,6 +33,8 @@
   const roomNumberSelect = document.querySelector(`#room_number`);
   const capacitySelect = document.querySelector(`#capacity`);
   const submitBtn = document.querySelector(`.ad-form__submit`);
+  const form = document.querySelector(`.ad-form`);
+  const main = document.querySelector(`main`);
 
   const checkPlaceValidity = function () {
     const roomGuests = RoomGuestRation[roomNumberSelect.value];
@@ -39,8 +42,68 @@
     capacitySelect.setCustomValidity(message);
   };
 
-  const onSubmitBtnClick = function () {
+  function onSuccess() {
+    const successMessage = document.querySelector(`#success`).content.querySelector(`.success`).cloneNode(true);
+    const fragment = document.createDocumentFragment();
+
+    fragment.appendChild(successMessage);
+    main.appendChild(fragment);
+
+    document.addEventListener(`keydown`, function (e) {
+      window.util.isEscEvent(e, function () {
+        removeSuccessPopup();
+      });
+
+      document.removeEventListener(`keydown`, removeSuccessPopup);
+    });
+    document.addEventListener(`click`, function () {
+      removeSuccessPopup();
+      document.removeEventListener(`click`, removeSuccessPopup);
+    });
+
+  }
+
+  function removeSuccessPopup() {
+    const successMessagePopup = main.querySelector(`.success`);
+    if (successMessagePopup) {
+      main.removeChild(successMessagePopup);
+    }
+  }
+
+  function onError() {
+    const errorMessage = document.querySelector(`#error`).content.querySelector(`.error`).cloneNode(true);
+    const errorFragment = document.createDocumentFragment();
+
+    errorFragment.appendChild(errorMessage);
+    main.appendChild(errorFragment);
+
+    document.addEventListener(`keydown`, function (e) {
+      window.util.isEscEvent(e, function () {
+        removeErrorPopup();
+      });
+
+      document.removeEventListener(`keydown`, removeSuccessPopup);
+    });
+    document.addEventListener(`click`, function () {
+      removeErrorPopup();
+      document.removeEventListener(`click`, removeSuccessPopup);
+    });
+  }
+
+  function removeErrorPopup() {
+    const errorMessagePopup = main.querySelector(`.error`);
+    if (errorMessagePopup) {
+      main.removeChild(errorMessagePopup);
+    }
+  }
+
+  const onSubmitBtnClick = function (e) {
     checkPlaceValidity();
+    if (form.checkValidity()) {
+      e.preventDefault();
+      window.ajax.upload(new FormData(form), onSuccess, onError);
+    }
+
   };
 
   const disableСapacityOptions = function (inputValue) {
@@ -61,7 +124,9 @@
 
   roomNumberSelect.addEventListener(`change`, onRoomNumberSelectChange);
 
-  submitBtn.addEventListener(`click`, onSubmitBtnClick);
+  submitBtn.addEventListener(`click`, function (e) {
+    onSubmitBtnClick(e);
+  });
 
 
   const timeInInput = document.querySelector(`#timein`);
