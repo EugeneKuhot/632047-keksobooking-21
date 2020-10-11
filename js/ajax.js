@@ -6,7 +6,7 @@
 
   const STATUS_OK = 200;
 
-  const setup = function (onSuccess, onError) {
+  function setup(onSuccess, onError) {
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
 
@@ -26,20 +26,20 @@
 
     xhr.timeout = MAX_TIME;
     return xhr;
-  };
+  }
 
-  const load = function (onSuccess, onError) {
+  function load(onSuccess, onError) {
     const xhr = setup(onSuccess, onError);
     xhr.open(`GET`, SERVER_URL + `/data`);
     xhr.send();
     return xhr;
-  };
+  }
 
-  const upload = function (data, onSuccess, onError) {
+  function upload(data, onSuccess, onError) {
     const xhr = setup(onSuccess, onError);
     xhr.open(`POST`, SERVER_URL);
     xhr.send(data);
-  };
+  }
 
 
   window.ajax = {
