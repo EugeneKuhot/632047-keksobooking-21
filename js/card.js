@@ -60,10 +60,10 @@
       window.map.remove();
     });
     ad.querySelector(`.popup__close`).addEventListener(`keydown`, function (e) {
-      window.util.isEnterEvent(e, window.map.remove());
+      window.util.isEnterEvent(e, window.map.remove);
     });
     document.addEventListener(`keydown`, function (e) {
-      window.util.isEnterEvent(e, window.map.remove());
+      window.util.isEscEvent(e, window.map.remove);
     });
 
     mapFiltersContainer.insertAdjacentElement(`beforebegin`, ad);

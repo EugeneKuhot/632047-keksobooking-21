@@ -50,7 +50,7 @@
       document.removeEventListener(`mouseup`, mouseUpShift);
 
 
-      let top = Number(window.map.mainPin.style.top.slice(0, -2)) + window.map.pinHeight;
+      let top = Number(window.map.mainPin.style.top.slice(0, -2));
       let left = window.map.mainPin.style.left.slice(0, -2);
 
       window.map.addressField.value = top + ` / ` + left;

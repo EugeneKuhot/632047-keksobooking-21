@@ -2,12 +2,12 @@
 
 (function () {
 
-  const MAP_TOP_BORDER = 130;
+  const MAP_TOP_BORDER = 43;
   const MAP_BOTTOM_BORDER = 630;
-  const MAP_LEFT_BORDER = 0;
-  const MAP_RIGHT_BORDER = 1150;
+  const MAP_LEFT_BORDER = -32;
+  const MAP_RIGHT_BORDER = 1168;
 
-  function getRandomIntInclusive(min, max) {
+/*  function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -83,10 +83,10 @@
     return similarAdsArray;
   }
 
-  const adDataMock = getSimilarAd(); // Mock array with property ads
+  const adDataMock = getSimilarAd(); // Mock array with property ads*/
 
   window.data = {
-    adData: adDataMock,
+/*    adData: adDataMock,*/
     mapTopBorder: MAP_TOP_BORDER,
     mapBottomBorder: MAP_BOTTOM_BORDER,
     mapLeftBorder: MAP_LEFT_BORDER,

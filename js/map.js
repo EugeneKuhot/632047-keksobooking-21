@@ -2,7 +2,8 @@
 
 (function () {
 
-  const PIN_HEIGHT = 22;
+  const PIN_HEIGHT = 87;
+  const PIN_WIDTH = 32;
 
   const mainPin = document.querySelector(`.map__pin--main`);
   const adForm = document.querySelector(`.ad-form`);
@@ -37,31 +38,39 @@
     activateForm();
     activateFilters();
   }
-  function setAddress(offset) {
+  function setAddress(offsetX, offsetY) {
     let top = Number(mainPin.style.top.slice(0, -2));
     let left = mainPin.style.left.slice(0, -2);
-    let adress = top + offset + ` / ` + left;
-    addressField.value = adress;
+    let address = top + offsetY + ` / ` + left + offsetX;
+    addressField.value = address;
   }
 
-  setAddress(0);
+  function onAdsLoadSuccess (data) {
+    window.pin.create(data);
+  }
+
+  const onError = function () {
+    console.error(`error`);
+  };
+
 
   mainPin.addEventListener(`mousedown`, function (e) {
     if (e.button === 0) {
-      setAddress(PIN_HEIGHT);
-      window.pin.create(window.data.adData);
+      setAddress(PIN_WIDTH, PIN_HEIGHT);
 
       if (adForm.classList.contains(`ad-form--disabled`)) {
+        window.ajax.load(onAdsLoadSuccess, onError);
+
         activatePage();
       }
     }
   });
   mainPin.addEventListener(`keydown`, function (e) {
     window.util.isEnterEvent(e, function () {
-      setAddress(PIN_HEIGHT);
-      window.pin.create(window.data.adData);
+      setAddress(PIN_WIDTH, PIN_HEIGHT);
 
       if (adForm.classList.contains(`ad-form--disabled`)) {
+        window.ajax.load(onAdsLoadSuccess, onError);
         activatePage();
       }
     });
@@ -72,6 +81,7 @@
     remove: removeCardPopups,
     mainPin: mainPin,
     pinHeight: PIN_HEIGHT,
+    pinWidth: PIN_WIDTH,
     addressField: addressField
   };
 })();
