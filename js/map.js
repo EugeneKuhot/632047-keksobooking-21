@@ -45,12 +45,12 @@
     addressField.value = address;
   }
 
-  function onAdsLoadSuccess (data) {
+  function onAdsLoadSuccess(data) {
     window.pin.create(data);
   }
 
   const onError = function () {
-    console.error(`error`);
+
   };
 
 
