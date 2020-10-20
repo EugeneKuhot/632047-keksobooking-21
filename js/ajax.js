@@ -14,7 +14,7 @@
       if (xhr.status === STATUS_OK) {
         onSuccess(xhr.response);
       } else {
-        onError(`Статус ошибки: ` + xhr.status + `` `` + xhr.statusText);
+        onError(`Статус ошибки: ` + xhr.status + ` ` + xhr.statusText);
       }
     });
     xhr.addEventListener(`error`, function () {

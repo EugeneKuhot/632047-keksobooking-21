@@ -10,6 +10,8 @@
       y: e.clientY
     };
 
+    window.map.setAddress(window.map.mainPin.offsetLeft, window.map.mainPin.offsetTop);
+
     function mouseMoveShift(moveE) {
       moveE.preventDefault();
 
@@ -28,6 +30,8 @@
 
       window.map.mainPin.style.top = pinOffsetTop + `px`;
       window.map.mainPin.style.left = pinOffsetLeft + `px`;
+     /* window.map.addressField.value = pinOffsetTop + ` / ` + pinOffsetLeft;*/
+      window.map.setAddress(pinOffsetLeft, pinOffsetTop);
 
 
       if (pinOffsetTop > window.data.mapBottomBorder) {
@@ -51,9 +55,8 @@
 
 
       let top = Number(window.map.mainPin.style.top.slice(0, -2));
-      let left = window.map.mainPin.style.left.slice(0, -2);
+      let left = Number(window.map.mainPin.style.left.slice(0, -2));
 
-      window.map.addressField.value = top + ` / ` + left;
     }
 
     document.addEventListener(`mousemove`, mouseMoveShift);

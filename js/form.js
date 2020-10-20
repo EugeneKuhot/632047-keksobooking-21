@@ -97,16 +97,19 @@
     }
   }
 
-  const onSubmitBtnClick = function (e) {
+  function onSubmitBtnClick(e) {
     checkPlaceValidity();
     if (form.checkValidity()) {
       e.preventDefault();
       window.ajax.upload(new FormData(form), onSuccess, onError);
+      window.map.deactivatePage();
+      window.map.removeCardPopups();
+      form.reset();
+      window.pin.removePins();
     }
-
   };
 
-  const disableСapacityOptions = function (inputValue) {
+  function disableСapacityOptions(inputValue) {
     const capacityOptions = capacitySelect.querySelectorAll(`option`);
     capacityOptions.forEach(function (it) {
       it.disabled = true;
@@ -117,7 +120,7 @@
     });
   };
 
-  const onRoomNumberSelectChange = function (evt) {
+  function onRoomNumberSelectChange(evt) {
     evt.target.setCustomValidity(``);
     disableСapacityOptions(roomNumberSelect.value);
   };
@@ -132,11 +135,11 @@
   const timeInInput = document.querySelector(`#timein`);
   const timeOutInput = document.querySelector(`#timeout`);
 
-  const onTimeInInputChange = function (evt) {
+  function onTimeInInputChange(evt) {
     timeOutInput.value = evt.target.value;
   };
 
-  const onTimeOutInputChange = function (evt) {
+  function onTimeOutInputChange(evt) {
     timeInInput.value = evt.target.value;
   };
 
@@ -193,5 +196,8 @@
       imagesChooser.value = ``;
     }
   });
+
+  const resetBtn = document.querySelector(`.ad-form__reset`);
+  resetBtn.addEventListener(`click`, window.map.deactivatePage)
 
 })();
