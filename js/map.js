@@ -78,35 +78,89 @@
     }));
   }
 
+
+  const filterForm = document.querySelector(`.map__filters`);
+  const houseTypeSelect = document.querySelector('#housing-type');
+  const housePriceSelect = document.querySelector('#housing-price');
+  const houseRoomsSelect = document.querySelector('#housing-rooms');
+  const houseGuestsSelect = document.querySelector('#housing-guests');
+
+
+  function updatePins(data) {
+    window.pin.removePins();
+
+    let pins = data;
+
+    const sameTypePins = pins.filter(function(pin) {
+      if (houseTypeSelect.value === `any`) {
+        return pins;
+      } else {
+        return pin.offer.type === houseTypeSelect.value;
+      }
+    });
+
+    const samePricePins = pins.filter(function(pin) {
+      if (housePriceSelect.value === `any`) {
+        return pins;
+      } else if (housePriceSelect.value === `middle`) {
+        if (pin.offer.price >= 10000 && pin.offer.price <= 50000) {
+          return pin.offer.price === housePriceSelect.value;
+        }
+
+      }
+    });
+
+
+
+    console.log(samePricePins);
+    window.pin.create(sameTypePins.concat(samePricePins));
+  }
+
+
+
+
+
+
   function onAdsLoadSuccess(data) {
     window.pin.create(data);
     activatePage();
     highlightPins();
+
+    filterForm.addEventListener(`change`, function() {
+      updatePins(data);
+
+    });
   }
 
   const onAdsLoadError = function () {
     window.util.renderErrorMessage()
   };
 
+  function pinsRender() {
+    window.ajax.load(onAdsLoadSuccess, onAdsLoadError);
+  }
+
 
   mainPin.addEventListener(`mousedown`, function (e) {
     if (e.button === 0) {
       setAddress(mainPin.offsetLeft, mainPin.offsetTop);
       if (adForm.classList.contains(`ad-form--disabled`)) {
-        window.ajax.load(onAdsLoadSuccess, onAdsLoadError);
+        pinsRender();
       }
     }
   });
   mainPin.addEventListener(`keydown`, function (e) {
     window.util.isEnterEvent(e, function () {
-      setAddress(mainPin.offsetTop,mainPin.offsetLeft);
+      setAddress(mainPin.offsetTop, mainPin.offsetLeft);
 
       if (adForm.classList.contains(`ad-form--disabled`)) {
-        window.ajax.load(onAdsLoadSuccess, onError);
+        window.ajax.load(onAdsLoadSuccess, onAdsLoadError);
         activatePage();
       }
     });
   });
+
+
 
   window.map = {
     remove: removeCardPopups,
@@ -116,6 +170,10 @@
     addressField: addressField,
     deactivatePage: deactivatePage,
     removeCardPopups: removeCardPopups,
-    setAddress: setAddress
+    setAddress: setAddress,
+
+
+    onAdsLoadSuccess: onAdsLoadSuccess,
+    onAdsLoadError: onAdsLoadError
   };
 })();
