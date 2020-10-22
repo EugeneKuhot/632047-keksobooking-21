@@ -8,16 +8,14 @@
     const pinsFragment = document.createDocumentFragment();
     const pinTemplate = document.querySelector(`#pin`).content.querySelector(`button`);
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < adData.length; i++) {
       const pin = pinTemplate.cloneNode(true);
       pin.style = `left:` + adData[i].location.x + `px; top:` + adData[i].location.y + `px;`;
       pin.querySelector(`img`).src = adData[i].author.avatar;
       pin.querySelector(`img`).alt = adData[i].offer.description;
-
       const onPinItemClick = function () {
         window.card.ad(adData[i]);
       };
-
       pin.addEventListener(`click`, function () {
         window.map.remove();
         onPinItemClick();
@@ -28,16 +26,27 @@
           onPinItemClick();
         });
       });
-
-
       pinsFragment.appendChild(pin);
+
     }
 
     mapPinsBlock.appendChild(pinsFragment);
   }
 
+  function removePins() {
+    const allPins = mapPinsBlock.querySelectorAll(`.map__pin`);
+    allPins.forEach(function (el) {
+      if (!el.classList.contains(`map__pin--main`)) {
+        el.remove();
+      }
+    });
+  }
+
+
   window.pin = {
-    create: createPins
+    create: createPins,
+    removePins: removePins,
+    mapPinsBlock: mapPinsBlock
   };
 
 })();

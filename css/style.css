@@ -475,6 +475,11 @@ fieldset {
   width: 100%;
 }
 
+.ad-form input:invalid,
+.ad-form select:invalid {
+  border: 1px solid red;
+}
+
 .ad-form--disabled {
   opacity: 0.3;
 }
@@ -1245,4 +1250,23 @@ fieldset {
 
 .hidden {
   display: none;
+}
+
+.error-message {
+  color: #fff;
+  z-index: 100;
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  font-size: 30px;
+  border-radius: 5px;
+  font-weight: 700;
+  margin-top: 200px;
+  padding: 50px 20px;
 }
