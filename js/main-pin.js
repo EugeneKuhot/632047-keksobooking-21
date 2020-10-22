@@ -30,7 +30,7 @@
 
       window.map.mainPin.style.top = pinOffsetTop + `px`;
       window.map.mainPin.style.left = pinOffsetLeft + `px`;
-     /* window.map.addressField.value = pinOffsetTop + ` / ` + pinOffsetLeft;*/
+      /* window.map.addressField.value = pinOffsetTop + ` / ` + pinOffsetLeft;*/
       window.map.setAddress(pinOffsetLeft, pinOffsetTop);
 
 
@@ -52,10 +52,6 @@
 
       document.removeEventListener(`mousemove`, mouseMoveShift);
       document.removeEventListener(`mouseup`, mouseUpShift);
-
-
-      let top = Number(window.map.mainPin.style.top.slice(0, -2));
-      let left = Number(window.map.mainPin.style.left.slice(0, -2));
 
     }
 

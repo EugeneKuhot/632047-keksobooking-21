@@ -10,7 +10,7 @@
     message.classList.add(`error-message`);
     message.textContent = `Произошла неизвестная ошибка. Пожалуйста, обновите страницу.`;
     document.body.insertAdjacentElement(`afterbegin`, message);
-  };
+  }
 
   function isEscEvent(e, action) {
     if (e.keyCode === ESC_KEYCODE) {

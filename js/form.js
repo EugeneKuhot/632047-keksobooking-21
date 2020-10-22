@@ -107,7 +107,7 @@
       form.reset();
       window.pin.removePins();
     }
-  };
+  }
 
   function disableСapacityOptions(inputValue) {
     const capacityOptions = capacitySelect.querySelectorAll(`option`);
@@ -118,12 +118,12 @@
       capacitySelect.querySelector(`option` + '[value="' + it + '"]').disabled = false;
       capacitySelect.value = it;
     });
-  };
+  }
 
   function onRoomNumberSelectChange(evt) {
     evt.target.setCustomValidity(``);
     disableСapacityOptions(roomNumberSelect.value);
-  };
+  }
 
   roomNumberSelect.addEventListener(`change`, onRoomNumberSelectChange);
 
@@ -137,11 +137,11 @@
 
   function onTimeInInputChange(evt) {
     timeOutInput.value = evt.target.value;
-  };
+  }
 
   function onTimeOutInputChange(evt) {
     timeInInput.value = evt.target.value;
-  };
+  }
 
   timeInInput.addEventListener(`change`, onTimeInInputChange);
   timeOutInput.addEventListener(`change`, onTimeOutInputChange);
@@ -198,6 +198,6 @@
   });
 
   const resetBtn = document.querySelector(`.ad-form__reset`);
-  resetBtn.addEventListener(`click`, window.map.deactivatePage)
+  resetBtn.addEventListener(`click`, window.map.deactivatePage);
 
 })();

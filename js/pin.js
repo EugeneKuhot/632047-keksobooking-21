@@ -8,7 +8,7 @@
     const pinsFragment = document.createDocumentFragment();
     const pinTemplate = document.querySelector(`#pin`).content.querySelector(`button`);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < adData.length; i++) {
       const pin = pinTemplate.cloneNode(true);
       pin.style = `left:` + adData[i].location.x + `px; top:` + adData[i].location.y + `px;`;
       pin.querySelector(`img`).src = adData[i].author.avatar;
@@ -39,7 +39,7 @@
       if (!el.classList.contains(`map__pin--main`)) {
         el.remove();
       }
-    })
+    });
   }
 
 
