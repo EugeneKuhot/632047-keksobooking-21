@@ -153,8 +153,7 @@
     highlightPins();
 
     filterForm.addEventListener(`change`, function () {
-      updatePins(data);
-
+      window.util.debounce(updatePins(data));
     });
   }
 

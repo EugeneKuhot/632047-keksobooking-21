@@ -4,6 +4,7 @@
 
   const ESC_KEYCODE = 27;
   const ENTER_KEYCODE = 13;
+  const DEBOUNCE_INTERVAL = 500;
 
   function renderErrorMessage() {
     const message = document.createElement(`div`);
@@ -24,10 +25,25 @@
     }
   }
 
+  function debounce(cb) {
+    let lastTimeout = null;
+
+    return function (...parameters) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function () {
+        cb(...parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
+  }
+
+
   window.util = {
     isEscEvent: isEscEvent,
     isEnterEvent: isEnterEvent,
-    renderErrorMessage: renderErrorMessage
+    renderErrorMessage: renderErrorMessage,
+    debounce: debounce
   };
 
 })();
