@@ -62,12 +62,15 @@
     deactivateForm();
     deactivateFilters();
     window.pin.removePins();
+    removeCardPopups();
   }
 
   function setAddress(offsetX, offsetY) {
-    let address = offsetX + 32 + ` / ` + offsetY;
+    let address = offsetX + 32 + `, ` + offsetY;
     addressField.value = address;
   }
+
+  setAddress(mainPin.offsetLeft, mainPin.offsetTop);
 
   function highlightPins() {
     const allPins = window.pin.mapPinsBlock.querySelectorAll(`.map__pin`);
@@ -143,11 +146,11 @@
       return filterData.indexOf(pin) === index;
     });
 
-    window.pin.create(uniquePins.slice(0, 5));
+    window.pin.createPins(uniquePins.slice(0, 5));
   }
 
   function onAdsLoadSuccess(data) {
-    window.pin.create(data.slice(0, 5));
+    window.pin.createPins(data.slice(0, 5));
     activatePage();
     highlightPins();
 
@@ -184,17 +187,13 @@
   });
 
   window.map = {
-    remove: removeCardPopups,
-    mainPin: mainPin,
     pinHeight: PIN_HEIGHT,
     pinWidth: PIN_WIDTH,
-    addressField: addressField,
-    deactivatePage: deactivatePage,
-    removeCardPopups: removeCardPopups,
-    setAddress: setAddress,
-
-
-    onAdsLoadSuccess: onAdsLoadSuccess,
-    onAdsLoadError: onAdsLoadError
+    addressField,
+    deactivatePage,
+    setAddress,
+    onAdsLoadError,
+    removeCardPopups,
+    mainPin
   };
 })();

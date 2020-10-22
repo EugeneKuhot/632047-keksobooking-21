@@ -109,7 +109,7 @@
     }
   }
 
-  function disableСapacityOptions(inputValue) {
+  function disableCapacityOptions(inputValue) {
     const capacityOptions = capacitySelect.querySelectorAll(`option`);
     capacityOptions.forEach(function (it) {
       it.disabled = true;

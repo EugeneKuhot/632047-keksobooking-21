@@ -57,19 +57,19 @@
     ad.querySelector(`.popup__photos`).appendChild(createPhotosFragment(adData));
 
     ad.querySelector(`.popup__close`).addEventListener(`click`, function () {
-      window.map.remove();
+      window.map.removeCardPopups();
     });
     ad.querySelector(`.popup__close`).addEventListener(`keydown`, function (e) {
-      window.util.isEnterEvent(e, window.map.remove);
+      window.util.isEnterEvent(e, window.map.removeCardPopups);
     });
     document.addEventListener(`keydown`, function (e) {
-      window.util.isEscEvent(e, window.map.remove);
+      window.util.isEscEvent(e, window.map.removeCardPopups);
     });
 
     mapFiltersContainer.insertAdjacentElement(`beforebegin`, ad);
   }
 
   window.card = {
-    ad: adCard
+    adCard
   };
 })();

@@ -40,10 +40,10 @@
 
 
   window.util = {
-    isEscEvent: isEscEvent,
-    isEnterEvent: isEnterEvent,
-    renderErrorMessage: renderErrorMessage,
-    debounce: debounce
+    isEscEvent,
+    isEnterEvent,
+    renderErrorMessage,
+    debounce
   };
 
 })();
