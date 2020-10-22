@@ -14,15 +14,15 @@
       pin.querySelector(`img`).src = adData[i].author.avatar;
       pin.querySelector(`img`).alt = adData[i].offer.description;
       const onPinItemClick = function () {
-        window.card.ad(adData[i]);
+        window.card.adCard(adData[i]);
       };
       pin.addEventListener(`click`, function () {
-        window.map.remove();
+        window.map.removeCardPopups();
         onPinItemClick();
       });
       pin.addEventListener(`keydown`, function (e) {
         window.util.isEnterEvent(e, function () {
-          window.map.remove();
+          window.map.removeCardPopups();
           onPinItemClick();
         });
       });
@@ -44,9 +44,9 @@
 
 
   window.pin = {
-    create: createPins,
-    removePins: removePins,
-    mapPinsBlock: mapPinsBlock
+    createPins,
+    removePins,
+    mapPinsBlock
   };
 
 })();

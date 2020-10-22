@@ -43,8 +43,8 @@
 
 
   window.ajax = {
-    load: load,
-    upload: upload
+    load,
+    upload
   };
 
 })();
