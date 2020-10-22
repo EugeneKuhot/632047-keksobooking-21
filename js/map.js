@@ -82,7 +82,6 @@
     }));
   }
 
-
   const filterForm = document.querySelector(`.map__filters`);
   const houseTypeSelect = document.querySelector(`#housing-type`);
   const housePriceSelect = document.querySelector(`#housing-price`);
@@ -153,8 +152,7 @@
     highlightPins();
 
     filterForm.addEventListener(`change`, function () {
-      updatePins(data);
-
+      window.util.debounce(updatePins(data));
     });
   }
 
