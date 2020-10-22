@@ -82,7 +82,6 @@
     }));
   }
 
-
   const filterForm = document.querySelector(`.map__filters`);
   const houseTypeSelect = document.querySelector(`#housing-type`);
   const housePriceSelect = document.querySelector(`#housing-price`);
