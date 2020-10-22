@@ -122,7 +122,7 @@
 
   function onRoomNumberSelectChange(evt) {
     evt.target.setCustomValidity(``);
-    disableСapacityOptions(roomNumberSelect.value);
+    disableCapacityOptions(roomNumberSelect.value);
   }
 
   roomNumberSelect.addEventListener(`change`, onRoomNumberSelectChange);
